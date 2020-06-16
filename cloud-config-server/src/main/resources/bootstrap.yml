@@ -6,7 +6,15 @@ spring:
   cloud:
     config:
       server:
-        bootstrap: true
+        git:
+          uri: https://github.com/mckshub/spring-microservices-config-repo.git
+          username: mckshub
+          password: Vidya$2692
+          search-paths:
+          - '{application}'
+          clone-on-start: true
+          refresh-rate: 10
+
+
   profiles:
-    active:
-    - native
+    active: dev
