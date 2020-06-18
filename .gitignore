@@ -7,6 +7,11 @@
 # BlueJ files
 *.ctxt
 
+# IntelliJ Files
+
+*.iml
+.idea/**
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -28,3 +33,7 @@ hs_err_pid*
 .classpath
 .vscode/**
 .settings/**
+**/mvnw
+**/mvnw.cmd
+**/.mvn/*
+**/.factorypath
