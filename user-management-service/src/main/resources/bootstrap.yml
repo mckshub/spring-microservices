@@ -7,3 +7,9 @@ spring:
   profiles:
     active:
     - dev
+management:
+  endpoint:
+    refresh:
+      enabled: true
+  endpoints:
+    enabled-by-default: true

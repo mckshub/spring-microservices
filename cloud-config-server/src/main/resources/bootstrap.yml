@@ -14,7 +14,11 @@ spring:
           - '{application}'
           clone-on-start: true
           refresh-rate: 10
-
-
   profiles:
     active: dev
+management:
+  endpoints:
+    enabled-by-default: true
+  endpoint:
+    refresh:
+      enabled: true
