@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: category-service
+  main:
+    banner-mode: off
+    log-startup-info: false
+  profiles:
+    active:
+      - dev
+management:
+  endpoint:
+    refresh:
+      enabled: true
+  endpoints:
+    enabled-by-default: true

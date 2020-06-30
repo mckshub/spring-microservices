@@ -9,7 +9,7 @@
 	<modules>
         <module>cloud-config-server</module>
 		<module>eureka-server</module>
-		<module>user-management-service</module>
+		<module>role-service</module>
+        <module>category-service</module>
 	</modules>
-	
 </project>
