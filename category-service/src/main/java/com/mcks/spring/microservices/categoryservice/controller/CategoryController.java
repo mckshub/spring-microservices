@@ -5,6 +5,7 @@ import com.mcks.spring.microservices.categoryservice.model.ResponseVO;
 import com.mcks.spring.microservices.categoryservice.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,8 +39,8 @@ public class CategoryController {
         return responseVO;
     }
 
-    @GetMapping(value = "/getCategoryById", produces = APPLICATION_JSON)
-    public ResponseVO getCategoryById(final Integer categoryId) {
+    @GetMapping(value = "/getCategoryById/{categoryId}", produces = APPLICATION_JSON)
+    public ResponseVO getCategoryById(@PathVariable ("categoryId") Integer categoryId) {
         ResponseVO responseVO = new ResponseVO();
         Optional<Category> category = categoryService.getCategory(categoryId);
         responseVO.setResultObject((Object) category);

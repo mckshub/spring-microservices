@@ -1,6 +1,9 @@
 spring:
   application:
     name: category-service
+  cloud:
+    config:
+      uri: http://localhost:8888
   main:
     banner-mode: off
     log-startup-info: false

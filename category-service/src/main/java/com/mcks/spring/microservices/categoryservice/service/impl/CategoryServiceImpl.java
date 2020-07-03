@@ -21,13 +21,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getAllCategoriesByList(final List<Integer> roleIds) {
-        return (List<Category>) categoryRepository.findAllById(roleIds);
+    public List<Category> getAllCategoriesByList(final List<Integer> categoryIds) {
+        return (List<Category>) categoryRepository.findAllById(categoryIds);
     }
 
     @Override
-    public Optional<Category> getCategory(final Integer roleId) {
-        return categoryRepository.findById(roleId);
+    public Optional<Category> getCategory(final Integer categoryId) {
+        return categoryRepository.findByCategoryId(categoryId);
     }
 
 }

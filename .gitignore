@@ -37,3 +37,13 @@ hs_err_pid*
 **/mvnw.cmd
 **/.mvn/*
 **/.factorypath
+/.vscode/
+.idea/
+.settings/
+category-service/.settings/
+category-service/src/test/
+category-service/target/
+cloud-config-server/.settings/
+eureka-server/.settings/
+role-service/.settings/
+role-service/target/

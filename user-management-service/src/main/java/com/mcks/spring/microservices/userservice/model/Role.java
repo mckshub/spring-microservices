@@ -1,4 +1,4 @@
-package com.mcks.spring.microservices.roleservice.document;
+package com.mcks.spring.microservices.userservice.model;
 
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection="Role")
 public class Role {
     
     private Integer roleId;
