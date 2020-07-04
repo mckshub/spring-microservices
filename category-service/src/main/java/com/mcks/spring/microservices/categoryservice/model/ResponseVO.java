@@ -1,8 +1,5 @@
 package com.mcks.spring.microservices.categoryservice.model;
 
-import lombok.*;
-import org.springframework.stereotype.Component;
-
 public class ResponseVO {
     
     private Object resultObject;
