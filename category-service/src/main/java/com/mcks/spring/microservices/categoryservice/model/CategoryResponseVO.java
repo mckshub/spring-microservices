@@ -1,11 +1,9 @@
-package com.mcks.spring.microservices.userservice.model;
+package com.mcks.spring.microservices.categoryservice.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.mcks.spring.microservices.userservice.document.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,17 +17,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(Include.NON_NULL)
-public class UserResponseVO implements Serializable {
-
+public class CategoryResponseVO implements Serializable {
+    
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4062372065610076861L;
 	
-	private User user;
-    private List<User> users;
-    private boolean isUserAlreadyExists;
+	private Object resultObject;
     private boolean status;
-    private String statusMessage;
+    private String statusMessages;
 
 }

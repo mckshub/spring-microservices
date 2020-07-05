@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mcks.spring.microservices.categoryservice.document.Category;
-import com.mcks.spring.microservices.categoryservice.model.ResponseVO;
+import com.mcks.spring.microservices.categoryservice.model.CategoryRequestVO;
+import com.mcks.spring.microservices.categoryservice.model.CategoryResponseVO;
 import com.mcks.spring.microservices.categoryservice.service.CategoryService;
 
 @RestController
@@ -25,38 +26,38 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping(value = "/getAllCategories", produces = APPLICATION_JSON)
-    public ResponseVO getAllCategories() {
-        final ResponseVO responseVO = new ResponseVO();
+    public CategoryResponseVO getAllCategories() {
+        final CategoryResponseVO responseVO = new CategoryResponseVO();
         final List<Category> allCategories = categoryService.getAllCategories();
-        responseVO.setResultObject((Object) allCategories);
+        responseVO.setResultObject(allCategories);
         responseVO.setStatus(true);
         responseVO.setStatusMessages("Success");
         return responseVO;
     }
 
     @PostMapping(value = "/getAllCategoriesByIds", produces = APPLICATION_JSON)
-    public ResponseVO getAllCategoriesByIds(@RequestBody final CategoryRequestVO requestVO) {
-        final ResponseVO responseVO = new ResponseVO();
+    public CategoryResponseVO getAllCategoriesByIds(@RequestBody final CategoryRequestVO requestVO) {
+        final CategoryResponseVO responseVO = new CategoryResponseVO();
         final List<Category> allCategories = categoryService.getAllCategoriesByList(requestVO.getCategoryIds());
-        responseVO.setResultObject((Object) allCategories);
+        responseVO.setResultObject(allCategories);
         responseVO.setStatus(true);
         responseVO.setStatusMessages("Success");
         return responseVO;
     }
 
     @GetMapping(value = "/getCategoryById/{categoryId}", produces = APPLICATION_JSON)
-    public ResponseVO getCategoryById(@PathVariable ("categoryId") String categoryId) {
-        ResponseVO responseVO = new ResponseVO();
+    public CategoryResponseVO getCategoryById(@PathVariable ("categoryId") String categoryId) {
+        CategoryResponseVO responseVO = new CategoryResponseVO();
         Optional<Category> category = categoryService.getCategory(categoryId);
-        responseVO.setResultObject((Object) category);
+        responseVO.setResultObject(category);
         responseVO.setStatus(true);
         responseVO.setStatusMessages("Success");
         return responseVO;
     }
     
     @PostMapping(value = "/saveCategory", produces = APPLICATION_JSON)
-    public ResponseVO saveCategory(@RequestBody final CategoryRequestVO requestVO) {
-    	ResponseVO responseVO = new ResponseVO();
+    public CategoryResponseVO saveCategory(@RequestBody final CategoryRequestVO requestVO) {
+    	CategoryResponseVO responseVO = new CategoryResponseVO();
     	Category savedCategory = categoryService.save(requestVO.getCategory());
     	responseVO.setResultObject(savedCategory);
     	responseVO.setStatus(true);
@@ -65,8 +66,8 @@ public class CategoryController {
     }
     
     @PostMapping(value = "/saveAllCategories", produces = APPLICATION_JSON)
-    public ResponseVO saveAllCategories(@RequestBody final CategoryRequestVO requestVO) {
-    	ResponseVO responseVO = new ResponseVO();
+    public CategoryResponseVO saveAllCategories(@RequestBody final CategoryRequestVO requestVO) {
+    	CategoryResponseVO responseVO = new CategoryResponseVO();
     	List<Category> savedCategories = categoryService.saveAll(requestVO.getCategories());
     	responseVO.setResultObject(savedCategories);
     	responseVO.setStatus(true);

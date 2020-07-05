@@ -1,34 +1,57 @@
 package com.mcks.spring.microservices.roleservice.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mcks.spring.microservices.roleservice.document.Role;
 import com.mcks.spring.microservices.roleservice.repository.RoleRepository;
 import com.mcks.spring.microservices.roleservice.service.RoleService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired
-    private RoleRepository roleRepository;
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    @Override
-    public List<Role> getAllRoles() {
-        return roleRepository.findAll();
-    }
+	@Autowired
+	private RoleRepository roleRepository;
 
-    @Override
-    public List<Role> getAllRolesByList(final List<Integer> roleIds) {
-        return (List<Role>) roleRepository.findAllById(roleIds);
-    }
+	@Override
+	public List<Role> getAllRoles() {
+		return roleRepository.findAll();
+	}
 
-    @Override
-    public Optional<Role> getRole(final Integer roleId) {
-        return roleRepository.findById(roleId);
-    }
-    
+	@Override
+	public List<Role> getAllRolesByList(List<String> roleCodes) {
+		LOGGER.info("Roles codes obtained from RequestVO : {}", roleCodes);
+
+		List<Role> roles = new ArrayList<>();
+		roleCodes.forEach(roleCode -> {
+			Role role = getRole(roleCode).get();
+			roles.add(role);
+		});
+
+		return roles;
+	}
+
+	@Override
+	public Optional<Role> getRole(String code) {
+		return roleRepository.findByRoleCode(code);
+	}
+
+	@Override
+	public Role save(Role role) {
+		return roleRepository.save(role);
+	}
+
+	@Override
+	public List<Role> saveAll(List<Role> roles) {
+		return roleRepository.saveAll(roles);
+	}
+
 }

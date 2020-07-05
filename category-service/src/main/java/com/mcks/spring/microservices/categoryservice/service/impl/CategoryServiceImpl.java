@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(CategoryServiceImpl.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private CategoryRepository categoryRepository;

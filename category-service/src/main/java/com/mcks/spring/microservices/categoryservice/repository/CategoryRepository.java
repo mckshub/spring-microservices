@@ -1,6 +1,5 @@
 package com.mcks.spring.microservices.categoryservice.repository;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -13,6 +12,4 @@ public interface CategoryRepository extends MongoRepository<Category, String> {
 
 	Optional<Category> findByCategoryCode(String code);
 
-	List<Category> findAllByCategoryCode(List<String> categoryCodes);
-	
 }

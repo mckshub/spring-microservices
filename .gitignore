@@ -41,9 +41,10 @@ hs_err_pid*
 .idea/
 .settings/
 category-service/.settings/
-category-service/src/test/
 category-service/target/
 cloud-config-server/.settings/
+cloud-config-server/target/*
 eureka-server/.settings/
+eureka-server/target/*
 role-service/.settings/
 role-service/target/

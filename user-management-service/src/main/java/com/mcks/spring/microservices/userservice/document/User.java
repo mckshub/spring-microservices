@@ -1,21 +1,41 @@
 package com.mcks.spring.microservices.userservice.document;
 
-import com.mcks.spring.microservices.userservice.model.Role;
-import com.mcks.spring.microservices.userservice.model.Category;
-import lombok.*;
+import java.io.Serializable;
+import java.util.List;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.mcks.spring.microservices.userservice.proxy.category.Category;
+import com.mcks.spring.microservices.userservice.proxy.role.Role;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Document(collection = "User")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+@JsonInclude(Include.NON_NULL)
+public class User implements Serializable {
 
-    private Integer userId;
+	
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 597875778256233516L;
 
-    private String email;
+	@Id
+	@Indexed(unique = true)
+    private String userName;
 
     private String firstName;
 
@@ -23,16 +43,14 @@ public class User {
 
     private String gender;
 
-    private String countryCode;
-
     private String contactNumber;
-
-    private Category category;
-
-    private Role role;
-
-    private Address address;
+    
+    private String address;
 
     private String mapLocation;
+
+    private List<Category> categories;
+
+    private Role role;
 
 }

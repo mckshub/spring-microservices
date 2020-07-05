@@ -22,6 +22,6 @@ public class Category {
 	@Id
 	@Indexed(unique = true)
 	private String categoryCode;
-	private String activeInd;
+	private String activeInd = "Y";
 
 }
