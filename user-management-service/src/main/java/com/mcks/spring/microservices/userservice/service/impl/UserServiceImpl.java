@@ -13,14 +13,25 @@ import com.mcks.spring.microservices.userservice.proxy.role.Role;
 import com.mcks.spring.microservices.userservice.proxy.role.RoleResponseModel;
 import com.mcks.spring.microservices.userservice.repository.UserRepository;
 import com.mcks.spring.microservices.userservice.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -42,6 +53,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userName);
     }
 
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public boolean checkUserExists(String userName) {
@@ -116,4 +128,14 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @SneakyThrows
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User userFromDB = authenticateUser(username);
+        LOGGER.info("UserServiceImpl.class ==> User Details Fetched from DB : " + userFromDB.toString());
+         org.springframework.security.core.userdetails.User user =
+                 new org.springframework.security.core.userdetails.User(userFromDB.getUsername(), userFromDB.getPassword(), new ArrayList<>());
+        LOGGER.info("UserServiceImpl.class ==> User object retrieved for Spring Security : " + user.toString());
+        return user;
+    }
 }

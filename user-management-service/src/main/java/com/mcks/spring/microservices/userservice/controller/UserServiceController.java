@@ -2,10 +2,18 @@ package com.mcks.spring.microservices.userservice.controller;
 
 import java.util.List;
 
+import com.mcks.spring.microservices.userservice.model.AuthenticationRequest;
+import com.mcks.spring.microservices.userservice.model.AuthenticationResponse;
+import com.mcks.spring.microservices.userservice.util.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +33,12 @@ public class UserServiceController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private JwtUtil jwtTokenUtil;
 
 	@GetMapping(value = "/getAllUsers", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UserResponseVO getAllUsers() {
@@ -50,7 +64,7 @@ public class UserServiceController {
 	public UserResponseVO autheticateUser(@RequestBody UserRequestVO requestVO) {
 		UserResponseVO responseVO = new UserResponseVO();
 		try {
-			userService.loadUserByUsername(requestVO.getUser().getUsername());
+			userService.authenticateUser(requestVO.getUser().getUsername());
 			responseVO.setStatus(true);
 			responseVO.setStatusMessage("User authentication successful !");
 		} catch (Exception e) {
@@ -59,5 +73,20 @@ public class UserServiceController {
 			responseVO.setStatusMessage(e.getMessage());
 		}
 		return responseVO;
+	}
+
+	@PostMapping(value = "/authenticate")
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+		try{
+		 authenticationManager.authenticate(
+		 		new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+		} catch(BadCredentialsException e) {
+			throw new Exception("Incorrect username or password", e);
+		}
+
+		final UserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getUsername());
+		final String jwt = jwtTokenUtil.generateToken(userDetails);
+		LOGGER.info ("UserServiceController.class ==> JWT Token generated : {}", jwt);
+		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 	}
 }
