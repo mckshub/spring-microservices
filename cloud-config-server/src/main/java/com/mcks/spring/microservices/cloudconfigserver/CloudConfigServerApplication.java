@@ -11,7 +11,9 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 public class CloudConfigServerApplication {
 
 	public static void main(String[] args) {
+		System.out.println("Starting up Spring Cloud Config Server. Please wait .... ");
 		SpringApplication.run(CloudConfigServerApplication.class, args);
+
 	}
 
 }

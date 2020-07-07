@@ -21,7 +21,7 @@ public class UserRequestVO {
 	
 	private List<User> users;
 	
-	private List<String> userNames;
+	private List<String> usernames;
 	
 	private String roleCode;
 	

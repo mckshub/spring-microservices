@@ -3,6 +3,7 @@ package com.mcks.spring.microservices.categoryservice.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +56,9 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public List<Category> saveAll(List<Category> categories) {
-		return categoryRepository.saveAll(categories);
+		List<Category> distinctCategories = categories.stream().distinct().collect(Collectors.toList());
+		categoryRepository.saveAll(distinctCategories);
+		return getAllCategories();
 	}
 
 }
